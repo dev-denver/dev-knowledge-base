@@ -1,0 +1,20 @@
+{
+  "name": "dev-knowledge-base",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI 기반 개인 개발 지식 저장소 (sessions -> notes -> posts)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "new:session": "tsc -p tsconfig.json && node dist/new-session.js",
+    "validate:posts": "tsc -p tsconfig.json && node dist/validate-posts.js",
+    "check": "npm run build && npm run validate:posts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "typescript": "^7.0.2"
+  }
+}
