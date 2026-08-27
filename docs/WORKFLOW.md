@@ -55,6 +55,27 @@
 5. 사용자가 게시 준비를 요청하면 `docs/QUALITY_CHECKLIST.md`로 검토하고 `npm run check`를 실행한다.
 6. commit/push/publish는 사용자가 명시적으로 요청했을 때만 수행한다.
 
+## 외부 블로그(dev-denver.github.io)로 발행하기
+
+이 레포의 `posts/`는 특정 블로그 엔진에 종속되지 않는 범용 형식이다. 반면
+`dev-denver.github.io`는 Astro 기반 실제 블로그로, 자체 발행 파이프라인
+(`docs/authoring/posting.md`, `docs/authoring/capture-prompt.md`)을 가지고 있다.
+사용자가 "이 내용 블로그에 올려줘"라고 요청하면 다음 흐름을 따른다.
+
+1. `templates/blog-capture-prompt.md`의 캡처 프롬프트 규격대로 `<slug>.intake.md`를
+   작성한다 (비밀정보 제거, 파일 경로는 이 레포 기준 상대경로 유지).
+2. 작성한 intake.md를 `dev-denver.github.io` 레포로 옮긴다.
+3. 그 레포의 `blog-post` 스킬이 intake.md를 `src/content/blog/<slug>.md`로 다듬는다.
+   intake.md의 `category_suggestion`은 제안일 뿐이며, 최종 카테고리 검증은 그
+   스킬이 `src/config/categories.json` 기준으로 한다 — 이 레포에 있는 카테고리
+   목록이 최신이 아니어도 무방하다.
+4. commit/PR/머지/배포는 사용자가 명시적으로 요청했을 때만 진행한다.
+
+로컬에서 두 레포를 함께 열 수 있는 환경이면 `templates/blog-capture-prompt.md`
+대신 `dev-denver.github.io/docs/authoring/capture-prompt.md` 원본을 직접 참고해도
+된다. 이 사본은 그 레포에 파일로 접근할 수 없는 환경(원격, 새 노트북 등)을 위한
+것이다.
+
 ## 각 단계의 완료 조건
 
 - **session 완료**: 오늘의 결론과 미해결 질문이 최신 상태로 정리되어 있다. (진행 중이어도 무방하며, 완료가 note 작성의 필수 조건은 아니다.)
